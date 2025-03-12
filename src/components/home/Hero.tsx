@@ -1,97 +1,162 @@
 
-import React from 'react';
+import React, { Suspense } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { GraduationCap, Swords, Trophy, Brain } from 'lucide-react';
+import { GraduationCap, Swords, Trophy, Brain, Gamepad2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { Canvas } from '@react-three/fiber';
+import { OrbitControls } from '@react-three/drei';
 import { motion } from 'framer-motion';
+
+// Simple 3D Avatar component
+const Avatar = () => {
+  return (
+    <>
+      <ambientLight intensity={0.5} />
+      <directionalLight position={[10, 10, 5]} intensity={1} />
+      <mesh>
+        <sphereGeometry args={[1, 32, 32]} />
+        <meshStandardMaterial color="#8B5CF6" />
+      </mesh>
+      <mesh position={[0, -0.5, 1]}>
+        <sphereGeometry args={[0.25, 32, 32]} />
+        <meshStandardMaterial color="#F97316" />
+      </mesh>
+      <mesh position={[0, 0.5, 1]}>
+        <sphereGeometry args={[0.25, 32, 32]} />
+        <meshStandardMaterial color="#0EA5E9" />
+      </mesh>
+      <mesh position={[0, 0, 0.8]} rotation={[0, 0, 0]}>
+        <torusGeometry args={[0.5, 0.1, 16, 100]} />
+        <meshStandardMaterial color="#D946EF" />
+      </mesh>
+    </>
+  );
+};
 
 const Hero = () => {
   const navigate = useNavigate();
   
   return (
-    <section className="relative overflow-hidden py-20 md:py-32">
+    <section className="relative overflow-hidden py-16 md:py-24 bg-gradient-to-br from-gray-900 to-gray-800 text-white">
       {/* Abstract background elements */}
-      <div className="absolute top-0 right-0 -translate-y-1/4 translate-x-1/4 w-[600px] h-[600px] rounded-full bg-gradient-to-br from-game-blue/20 to-game-purple/20 blur-3xl" />
-      <div className="absolute bottom-0 left-0 translate-y-1/4 -translate-x-1/4 w-[600px] h-[600px] rounded-full bg-gradient-to-tr from-game-purple/10 to-game-blue/10 blur-3xl" />
+      <div className="absolute top-0 right-0 -translate-y-1/4 translate-x-1/4 w-[600px] h-[600px] rounded-full bg-gradient-to-br from-game-blue/20 to-game-purple/30 blur-3xl" />
+      <div className="absolute bottom-0 left-0 translate-y-1/4 -translate-x-1/4 w-[600px] h-[600px] rounded-full bg-gradient-to-tr from-game-purple/20 to-game-blue/20 blur-3xl" />
       
       <div className="container mx-auto px-4 relative z-10">
         <div className="flex flex-col md:flex-row items-center justify-between gap-12">
           <div className="md:w-1/2 space-y-6 animation-delay-100 animate-fade-in">
-            <div className="inline-flex items-center rounded-full px-3 py-1 text-sm font-medium bg-game-purple/10 text-game-purple">
-              <span className="mr-1">✨</span> Educational gaming reimagined
-            </div>
+            <motion.div 
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5 }}
+              className="inline-flex items-center rounded-full px-4 py-2 text-sm font-bold bg-game-purple/30 text-white border border-game-purple/50 backdrop-blur-sm"
+            >
+              <Gamepad2 className="mr-2 h-4 w-4" /> LEARN WHILE PLAYING
+            </motion.div>
             
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight">
+            <motion.h1 
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.1 }}
+              className="text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight"
+            >
               Learn. Duel.{' '}
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-game-blue to-game-purple">
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-game-blue via-game-purple to-game-red drop-shadow-[0_2px_2px_rgba(0,0,0,0.5)]">
                 Conquer.
               </span>
-            </h1>
+            </motion.h1>
             
-            <p className="text-lg md:text-xl text-gray-600 max-w-xl">
-              Challenge students from around the world to educational duels across multiple subjects and rise through the global rankings.
-            </p>
+            <motion.p 
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.2 }}
+              className="text-lg md:text-xl text-gray-300 max-w-xl"
+            >
+              Challenge students from around the world to educational duels and rise through the global rankings. It's time to show what you've got!
+            </motion.p>
             
-            <div className="flex flex-wrap gap-4 pt-2">
+            <motion.div 
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.3 }}
+              className="flex flex-wrap gap-4 pt-4"
+            >
               <Button 
                 onClick={() => navigate('/subjects')}
                 size="lg" 
-                className="rounded-full text-white bg-gradient-to-r from-game-blue to-game-purple hover:opacity-90 transition-all shadow-lg hover:shadow-xl"
+                className="rounded-full text-white bg-gradient-to-r from-game-blue to-game-purple hover:opacity-90 transition-all shadow-lg hover:shadow-xl border-2 border-white/10 font-bold"
               >
-                Start Dueling
+                <Swords className="mr-2 h-5 w-5" />
+                START DUELING
               </Button>
               
               <Button 
                 onClick={() => navigate('/leaderboard')}
                 variant="outline" 
                 size="lg" 
-                className="rounded-full border-gray-300"
+                className="rounded-full border-2 border-white/20 bg-white/5 backdrop-blur-sm text-white hover:bg-white/10 font-bold"
               >
-                View Leaderboards
+                <Trophy className="mr-2 h-5 w-5" />
+                LEADERBOARDS
               </Button>
-            </div>
+            </motion.div>
           </div>
           
-          <div className="md:w-1/2 animation-delay-300 animate-fade-in">
-            <div className="relative aspect-square max-w-lg mx-auto">
-              {/* Decorative elements */}
-              <div className="absolute top-1/4 right-1/4 w-20 h-20 rounded-lg bg-game-blue/20 blur-xl animate-float" style={{ animationDelay: '0s' }} />
-              <div className="absolute bottom-1/4 left-1/4 w-16 h-16 rounded-lg bg-game-purple/20 blur-xl animate-float" style={{ animationDelay: '1s' }} />
-              <div className="absolute top-1/3 left-1/3 w-24 h-24 rounded-lg bg-game-yellow/20 blur-xl animate-float" style={{ animationDelay: '2s' }} />
-              
-              {/* Feature cards */}
-              <div className="absolute top-0 left-0 transform -translate-x-1/4 -translate-y-1/4 w-44 h-44 glass rounded-2xl p-4 flex flex-col justify-center items-center space-y-2 shadow-lg animate-float" style={{ animationDelay: '0.5s' }}>
-                <div className="w-10 h-10 rounded-full bg-game-purple/20 flex items-center justify-center">
-                  <GraduationCap className="h-5 w-5 text-game-purple" />
-                </div>
-                <h3 className="font-semibold text-sm text-center">5 Academic Subjects</h3>
-                <p className="text-xs text-gray-500 text-center">Math, Physics, Literature & more</p>
+          <motion.div 
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.5, delay: 0.4 }}
+            className="md:w-1/2 animation-delay-300 relative"
+          >
+            <div className="w-full aspect-square max-w-md mx-auto">
+              {/* 3D Avatar */}
+              <div className="w-full h-full rounded-full bg-gradient-to-br from-game-blue/30 to-game-purple/30 p-1 backdrop-blur-sm border border-white/20 shadow-2xl">
+                <Canvas className="rounded-full overflow-hidden">
+                  <Suspense fallback={null}>
+                    <OrbitControls enableZoom={false} autoRotate autoRotateSpeed={2} />
+                    <Avatar />
+                  </Suspense>
+                </Canvas>
               </div>
               
-              <div className="absolute bottom-0 right-0 transform translate-x-1/4 translate-y-1/4 w-44 h-44 glass rounded-2xl p-4 flex flex-col justify-center items-center space-y-2 shadow-lg animate-float" style={{ animationDelay: '1.5s' }}>
-                <div className="w-10 h-10 rounded-full bg-game-blue/20 flex items-center justify-center">
-                  <Swords className="h-5 w-5 text-game-blue" />
-                </div>
-                <h3 className="font-semibold text-sm text-center">Real-time Duels</h3>
-                <p className="text-xs text-gray-500 text-center">Battle with students worldwide</p>
-              </div>
+              {/* Floating badges */}
+              <motion.div 
+                initial={{ x: -20, y: -20 }}
+                animate={{ x: -30, y: -30 }}
+                transition={{ duration: 2, repeat: Infinity, repeatType: "reverse", ease: "easeInOut" }}
+                className="absolute top-1/4 left-0 glass bg-game-blue/30 backdrop-blur-md p-3 rounded-2xl shadow-lg border border-white/20"
+              >
+                <GraduationCap className="h-8 w-8 text-white" />
+              </motion.div>
               
-              <div className="absolute top-1/2 right-0 transform translate-x-1/3 -translate-y-1/2 w-44 h-44 glass rounded-2xl p-4 flex flex-col justify-center items-center space-y-2 shadow-lg animate-float" style={{ animationDelay: '1s' }}>
-                <div className="w-10 h-10 rounded-full bg-game-green/20 flex items-center justify-center">
-                  <Trophy className="h-5 w-5 text-game-green" />
-                </div>
-                <h3 className="font-semibold text-sm text-center">Global Rankings</h3>
-                <p className="text-xs text-gray-500 text-center">Climb from school to global ranks</p>
-              </div>
+              <motion.div 
+                initial={{ x: 20, y: 20 }}
+                animate={{ x: 30, y: 30 }}
+                transition={{ duration: 2, repeat: Infinity, repeatType: "reverse", ease: "easeInOut" }}
+                className="absolute bottom-1/4 right-0 glass bg-game-purple/30 backdrop-blur-md p-3 rounded-2xl shadow-lg border border-white/20"
+              >
+                <Swords className="h-8 w-8 text-white" />
+              </motion.div>
               
-              {/* Central element */}
-              <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-56 h-56 rounded-full glass shadow-xl flex items-center justify-center">
-                <div className="w-44 h-44 rounded-full bg-gradient-to-br from-game-blue to-game-purple flex items-center justify-center">
-                  <Brain className="h-16 w-16 text-white" />
-                </div>
-              </div>
+              <motion.div 
+                initial={{ x: 20, y: -20 }}
+                animate={{ x: 30, y: -30 }}
+                transition={{ duration: 1.8, repeat: Infinity, repeatType: "reverse", ease: "easeInOut", delay: 0.5 }}
+                className="absolute top-1/4 right-1/4 glass bg-game-green/30 backdrop-blur-md p-3 rounded-2xl shadow-lg border border-white/20"
+              >
+                <Trophy className="h-8 w-8 text-white" />
+              </motion.div>
+              
+              <motion.div 
+                initial={{ y: 0 }}
+                animate={{ y: -10 }}
+                transition={{ duration: 1.5, repeat: Infinity, repeatType: "reverse", ease: "easeInOut" }}
+                className="absolute -bottom-6 left-1/2 transform -translate-x-1/2 py-2 px-4 rounded-full bg-gradient-to-r from-game-blue to-game-purple text-white font-bold text-sm shadow-xl border border-white/20"
+              >
+                Your Avatar
+              </motion.div>
             </div>
-          </div>
+          </motion.div>
         </div>
       </div>
     </section>
