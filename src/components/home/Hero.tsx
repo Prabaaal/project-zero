@@ -37,7 +37,7 @@ const Hero = () => {
   const navigate = useNavigate();
   
   return (
-    <section className="relative overflow-hidden py-16 md:py-24 bg-gradient-to-br from-gray-900 to-gray-800 text-white">
+    <section className="relative overflow-hidden py-16 md:py-24 bg-gradient-to-br from-gray-900 to-gray-800 text-gray-100">
       {/* Abstract background elements */}
       <div className="absolute top-0 right-0 -translate-y-1/4 translate-x-1/4 w-[600px] h-[600px] rounded-full bg-gradient-to-br from-game-blue/20 to-game-purple/30 blur-3xl" />
       <div className="absolute bottom-0 left-0 translate-y-1/4 -translate-x-1/4 w-[600px] h-[600px] rounded-full bg-gradient-to-tr from-game-purple/20 to-game-blue/20 blur-3xl" />
@@ -49,7 +49,7 @@ const Hero = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5 }}
-              className="inline-flex items-center rounded-full px-4 py-2 text-sm font-bold bg-game-purple/30 text-white border border-game-purple/50 backdrop-blur-sm"
+              className="inline-flex items-center rounded-full px-4 py-2 text-sm font-bold bg-game-purple/30 text-gray-100 border border-game-purple/50 backdrop-blur-sm"
             >
               <Gamepad2 className="mr-2 h-4 w-4" /> LEARN WHILE PLAYING
             </motion.div>
@@ -84,7 +84,7 @@ const Hero = () => {
               <Button 
                 onClick={() => navigate('/subjects')}
                 size="lg" 
-                className="rounded-full text-white bg-gradient-to-r from-game-blue to-game-purple hover:opacity-90 transition-all shadow-lg hover:shadow-xl border-2 border-white/10 font-bold"
+                className="rounded-full text-gray-100 bg-gradient-to-r from-game-blue to-game-purple hover:opacity-90 transition-all shadow-lg hover:shadow-xl border-2 border-gray-100/10 font-bold"
               >
                 <Swords className="mr-2 h-5 w-5" />
                 START DUELING
@@ -94,7 +94,7 @@ const Hero = () => {
                 onClick={() => navigate('/leaderboard')}
                 variant="outline" 
                 size="lg" 
-                className="rounded-full border-2 border-white/20 bg-white/5 backdrop-blur-sm text-white hover:bg-white/10 font-bold"
+                className="rounded-full border-2 border-gray-100/20 bg-gray-800/50 backdrop-blur-sm text-gray-100 hover:bg-gray-700/50 font-bold"
               >
                 <Trophy className="mr-2 h-5 w-5" />
                 LEADERBOARDS
@@ -110,7 +110,7 @@ const Hero = () => {
           >
             <div className="w-full aspect-square max-w-md mx-auto">
               {/* 3D Avatar */}
-              <div className="w-full h-full rounded-full bg-gradient-to-br from-game-blue/30 to-game-purple/30 p-1 backdrop-blur-sm border border-white/20 shadow-2xl">
+              <div className="w-full h-full rounded-full bg-gradient-to-br from-game-blue/30 to-game-purple/30 p-1 backdrop-blur-sm border border-gray-100/20 shadow-2xl">
                 <Canvas className="rounded-full overflow-hidden">
                   <Suspense fallback={null}>
                     <OrbitControls enableZoom={false} autoRotate autoRotateSpeed={2} />
@@ -124,34 +124,34 @@ const Hero = () => {
                 initial={{ x: -20, y: -20 }}
                 animate={{ x: -30, y: -30 }}
                 transition={{ duration: 2, repeat: Infinity, repeatType: "reverse", ease: "easeInOut" }}
-                className="absolute top-1/4 left-0 glass bg-game-blue/30 backdrop-blur-md p-3 rounded-2xl shadow-lg border border-white/20"
+                className="absolute top-1/4 left-0 bg-game-blue/30 backdrop-blur-md p-3 rounded-2xl shadow-lg border border-gray-100/20"
               >
-                <GraduationCap className="h-8 w-8 text-white" />
+                <GraduationCap className="h-8 w-8 text-gray-100" />
               </motion.div>
               
               <motion.div 
                 initial={{ x: 20, y: 20 }}
                 animate={{ x: 30, y: 30 }}
                 transition={{ duration: 2, repeat: Infinity, repeatType: "reverse", ease: "easeInOut" }}
-                className="absolute bottom-1/4 right-0 glass bg-game-purple/30 backdrop-blur-md p-3 rounded-2xl shadow-lg border border-white/20"
+                className="absolute bottom-1/4 right-0 bg-game-purple/30 backdrop-blur-md p-3 rounded-2xl shadow-lg border border-gray-100/20"
               >
-                <Swords className="h-8 w-8 text-white" />
+                <Swords className="h-8 w-8 text-gray-100" />
               </motion.div>
               
               <motion.div 
                 initial={{ x: 20, y: -20 }}
                 animate={{ x: 30, y: -30 }}
                 transition={{ duration: 1.8, repeat: Infinity, repeatType: "reverse", ease: "easeInOut", delay: 0.5 }}
-                className="absolute top-1/4 right-1/4 glass bg-game-green/30 backdrop-blur-md p-3 rounded-2xl shadow-lg border border-white/20"
+                className="absolute top-1/4 right-1/4 bg-game-green/30 backdrop-blur-md p-3 rounded-2xl shadow-lg border border-gray-100/20"
               >
-                <Trophy className="h-8 w-8 text-white" />
+                <Trophy className="h-8 w-8 text-gray-100" />
               </motion.div>
               
               <motion.div 
                 initial={{ y: 0 }}
                 animate={{ y: -10 }}
                 transition={{ duration: 1.5, repeat: Infinity, repeatType: "reverse", ease: "easeInOut" }}
-                className="absolute -bottom-6 left-1/2 transform -translate-x-1/2 py-2 px-4 rounded-full bg-gradient-to-r from-game-blue to-game-purple text-white font-bold text-sm shadow-xl border border-white/20"
+                className="absolute -bottom-6 left-1/2 transform -translate-x-1/2 py-2 px-4 rounded-full bg-gradient-to-r from-game-blue to-game-purple text-gray-100 font-bold text-sm shadow-xl border border-gray-100/20"
               >
                 Your Avatar
               </motion.div>

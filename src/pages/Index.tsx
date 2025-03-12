@@ -13,7 +13,7 @@ const Index = () => {
   const navigate = useNavigate();
   
   return (
-    <div className="min-h-screen flex flex-col bg-gradient-to-br from-gray-100 to-gray-200">
+    <div className="min-h-screen flex flex-col bg-gradient-to-br from-gray-900 to-gray-800">
       <Navbar />
       
       <main className="flex-grow">
@@ -32,18 +32,18 @@ const Index = () => {
               viewport={{ once: true }}
               className="max-w-3xl mx-auto text-center"
             >
-              <div className="inline-flex items-center rounded-full px-4 py-2 mb-6 text-sm font-bold bg-game-purple/30 text-white border border-game-purple/50 backdrop-blur-sm">
+              <div className="inline-flex items-center rounded-full px-4 py-2 mb-6 text-sm font-bold bg-game-purple/30 text-gray-100 border border-game-purple/50 backdrop-blur-sm">
                 <Sparkles className="mr-2 h-4 w-4" /> GET READY TO CHALLENGE YOURSELF
               </div>
               
-              <h2 className="text-3xl font-extrabold mb-6 text-white">Ready to Test Your Knowledge in Epic Duels?</h2>
+              <h2 className="text-3xl font-extrabold mb-6 text-gray-100">Ready to Test Your Knowledge in Epic Duels?</h2>
               <p className="text-lg text-gray-300 mb-8">
                 Join thousands of students worldwide in educational battles that make learning competitive and fun!
               </p>
               <Button 
                 size="lg" 
                 onClick={() => navigate('/subjects')}
-                className="rounded-full bg-gradient-to-r from-game-blue to-game-purple text-white hover:opacity-90 shadow-lg border-2 border-white/10 font-bold"
+                className="rounded-full bg-gradient-to-r from-game-blue to-game-purple text-gray-100 hover:opacity-90 shadow-lg border-2 border-gray-100/10 font-bold"
               >
                 <Swords className="mr-2 h-5 w-5" />
                 Start Dueling

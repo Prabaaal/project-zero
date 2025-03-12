@@ -71,14 +71,14 @@ const Leaderboard = () => {
   };
   
   return (
-    <div className="min-h-screen flex flex-col">
+    <div className="min-h-screen flex flex-col bg-gradient-to-br from-gray-900 to-gray-800">
       <Navbar />
       
       <main className="flex-grow pt-24 pb-16">
         <div className="container mx-auto px-4">
           <div className="text-center mb-12 animate-fade-in">
-            <h1 className="text-3xl font-bold mb-4">Leaderboards</h1>
-            <p className="text-gray-600 max-w-2xl mx-auto">
+            <h1 className="text-3xl font-bold mb-4 text-gray-100">Leaderboards</h1>
+            <p className="text-gray-300 max-w-2xl mx-auto">
               See how you rank against other students from your school to around the globe in various subjects.
             </p>
           </div>
@@ -91,9 +91,9 @@ const Leaderboard = () => {
                 onValueChange={(value) => setCategoryTab(value as RankCategory)}
                 className="w-full md:w-auto"
               >
-                <TabsList className="grid grid-cols-5 w-full md:w-auto">
+                <TabsList className="grid grid-cols-5 w-full md:w-auto bg-gray-700">
                   {categories.map(category => (
-                    <TabsTrigger key={category} value={category} className="flex items-center space-x-1">
+                    <TabsTrigger key={category} value={category} className="flex items-center space-x-1 data-[state=active]:bg-gray-600">
                       {getCategoryIcon(category)}
                       <span>{category}</span>
                     </TabsTrigger>
@@ -106,10 +106,10 @@ const Leaderboard = () => {
                   value={subject} 
                   onValueChange={(value) => setSubject(value as Subject | 'All')}
                 >
-                  <SelectTrigger className="w-full md:w-[180px]">
+                  <SelectTrigger className="w-full md:w-[180px] bg-gray-700 border-gray-600 text-gray-100">
                     <SelectValue placeholder="Select Subject" />
                   </SelectTrigger>
-                  <SelectContent>
+                  <SelectContent className="bg-gray-700 text-gray-100 border-gray-600">
                     {subjects.map(subj => (
                       <SelectItem key={subj} value={subj}>
                         {subj}

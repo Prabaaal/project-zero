@@ -37,13 +37,13 @@ const Features = () => {
   ];
   
   return (
-    <section className="py-20 bg-gray-50">
+    <section className="py-20 bg-gray-800">
       <div className="container mx-auto px-4">
         <div className="text-center max-w-3xl mx-auto mb-16 animate-fade-in">
-          <h2 className="text-3xl font-bold tracking-tight mb-4">
+          <h2 className="text-3xl font-bold tracking-tight mb-4 text-gray-100">
             Features that Make Learning Exciting
           </h2>
-          <p className="text-lg text-gray-600">
+          <p className="text-lg text-gray-300">
             EduDuel combines education with competitive gaming to create an engaging learning experience.
           </p>
         </div>
@@ -52,14 +52,14 @@ const Features = () => {
           {features.map((feature, index) => (
             <div 
               key={index}
-              className="bg-white rounded-2xl p-6 shadow-md hover:shadow-lg transition-all duration-300 border border-gray-100 animate-scale-in"
+              className="bg-gray-700 rounded-2xl p-6 shadow-md hover:shadow-lg transition-all duration-300 border border-gray-600 animate-scale-in"
               style={{ animationDelay: `${index * 100}ms` }}
             >
-              <div className="mb-4 p-3 rounded-full w-16 h-16 flex items-center justify-center bg-gray-50">
+              <div className="mb-4 p-3 rounded-full w-16 h-16 flex items-center justify-center bg-gray-800">
                 {feature.icon}
               </div>
-              <h3 className="text-xl font-semibold mb-2">{feature.title}</h3>
-              <p className="text-gray-600">{feature.description}</p>
+              <h3 className="text-xl font-semibold mb-2 text-gray-100">{feature.title}</h3>
+              <p className="text-gray-300">{feature.description}</p>
             </div>
           ))}
         </div>
