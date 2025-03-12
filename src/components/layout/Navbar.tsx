@@ -19,7 +19,7 @@ const Navbar = () => {
       <div className="container mx-auto px-4 flex items-center justify-between h-16">
         <div className="flex items-center space-x-2">
           <GraduationCap className="h-8 w-8 text-game-purple" />
-          <span className="text-xl font-semibold tracking-tight text-gray-100">EduDuel</span>
+          <span className="text-xl font-semibold tracking-tight text-gray-100">Project ZERO</span>
         </div>
         
         <nav className="hidden md:flex items-center space-x-1">
