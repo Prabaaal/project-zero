@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Question } from '@/types/game';
 import { Button } from '@/components/ui/button';
-import { AlertTriangle, Clock, Brain, CheckCircle, XCircle } from 'lucide-react';
+import { AlertTriangle, Clock, Brain, CheckCircle, XCircle, Lock } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { motion, AnimatePresence } from 'framer-motion';
 
@@ -20,10 +20,12 @@ const QuestionCard: React.FC<QuestionCardProps> = ({
 }) => {
   const [selectedAnswer, setSelectedAnswer] = useState<string | null>(null);
   const [timeFlash, setTimeFlash] = useState(false);
+  const [confirmed, setConfirmed] = useState(false);
 
   // Reset selected answer when question changes
   useEffect(() => {
     setSelectedAnswer(null);
+    setConfirmed(false);
   }, [question.id]);
 
   // Flash effect when time is low
@@ -38,10 +40,30 @@ const QuestionCard: React.FC<QuestionCardProps> = ({
     }
   }, [timeRemaining]);
 
+  // Handle keyboard shortcuts (spacebar for lock in)
+  useEffect(() => {
+    const handleKeyPress = (e: KeyboardEvent) => {
+      if (e.code === 'Space' && selectedAnswer && !confirmed && !disabled) {
+        e.preventDefault();
+        handleConfirmAnswer();
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyPress);
+    return () => {
+      window.removeEventListener('keydown', handleKeyPress);
+    };
+  }, [selectedAnswer, confirmed, disabled]);
+
   const handleSelectOption = (option: string) => {
-    if (disabled || selectedAnswer) return;
+    if (disabled || confirmed) return;
     setSelectedAnswer(option);
-    onAnswer(option);
+  };
+
+  const handleConfirmAnswer = () => {
+    if (!selectedAnswer || confirmed) return;
+    setConfirmed(true);
+    onAnswer(selectedAnswer);
   };
 
   const getSubjectColor = (subject: string) => {
@@ -109,7 +131,7 @@ const QuestionCard: React.FC<QuestionCardProps> = ({
           delay: index * 0.1,
           duration: 0.3
         }}>
-              <Button variant={selectedAnswer === option ? "default" : "outline"} className={cn("w-full justify-start text-left py-4 h-auto group transition-all", selectedAnswer === option ? "bg-gradient-to-r from-purple-700 to-purple-900 text-white border-purple-500" : "hover:bg-gray-800 hover:border-purple-500 text-purple-100 border-gray-700", disabled && "opacity-70 cursor-not-allowed")} onClick={() => handleSelectOption(option)} disabled={disabled || selectedAnswer !== null}>
+              <Button variant={selectedAnswer === option ? "default" : "outline"} className={cn("w-full justify-start text-left py-4 h-auto group transition-all", selectedAnswer === option ? "bg-gradient-to-r from-purple-700 to-purple-900 text-white border-purple-500" : "hover:bg-gray-800 hover:border-purple-500 text-purple-100 border-gray-700", (disabled || confirmed) && "opacity-70 cursor-not-allowed")} onClick={() => handleSelectOption(option)} disabled={disabled || confirmed}>
                 <span className="font-medium flex items-center">
                   <span className="h-6 w-6 rounded-full flex items-center justify-center border border-current mr-2 transition-colors">
                     {String.fromCharCode(65 + index)}
@@ -117,7 +139,7 @@ const QuestionCard: React.FC<QuestionCardProps> = ({
                   {option}
                 </span>
                 
-                {selectedAnswer === option && <motion.span className="ml-auto" initial={{
+                {confirmed && selectedAnswer === option && <motion.span className="ml-auto" initial={{
               scale: 0
             }} animate={{
               scale: 1
@@ -131,6 +153,31 @@ const QuestionCard: React.FC<QuestionCardProps> = ({
               </Button>
             </motion.div>)}
         </div>
+        
+        {/* Lock In Button */}
+        <AnimatePresence>
+          {selectedAnswer && !confirmed && !disabled && (
+            <motion.div 
+              className="mt-4"
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -10 }}
+              transition={{ duration: 0.3 }}
+            >
+              <Button 
+                variant="default" 
+                className="w-full bg-green-600 hover:bg-green-700 py-2 font-medium group relative overflow-hidden"
+                onClick={handleConfirmAnswer}
+              >
+                <span className="relative z-10 flex items-center justify-center">
+                  <Lock className="mr-2 h-5 w-5" />
+                  Lock In Answer <span className="ml-2 opacity-70">(or press Spacebar)</span>
+                </span>
+                <span className="absolute inset-0 bg-gradient-to-r from-green-600 to-emerald-600 opacity-0 group-hover:opacity-100 transition-opacity" />
+              </Button>
+            </motion.div>
+          )}
+        </AnimatePresence>
         
         {timeRemaining !== undefined && timeRemaining < 5 && <AnimatePresence>
             <motion.div className="flex items-center space-x-2 text-red-500 text-sm mt-4" initial={{
