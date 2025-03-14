@@ -4,12 +4,14 @@ import { Button } from '@/components/ui/button';
 import { AlertTriangle, Clock, Brain, CheckCircle, XCircle } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { motion, AnimatePresence } from 'framer-motion';
+
 interface QuestionCardProps {
   question: Question;
   timeRemaining?: number;
   onAnswer: (answer: string) => void;
   disabled?: boolean;
 }
+
 const QuestionCard: React.FC<QuestionCardProps> = ({
   question,
   timeRemaining,
@@ -18,6 +20,11 @@ const QuestionCard: React.FC<QuestionCardProps> = ({
 }) => {
   const [selectedAnswer, setSelectedAnswer] = useState<string | null>(null);
   const [timeFlash, setTimeFlash] = useState(false);
+
+  // Reset selected answer when question changes
+  useEffect(() => {
+    setSelectedAnswer(null);
+  }, [question.id]);
 
   // Flash effect when time is low
   useEffect(() => {
@@ -30,11 +37,13 @@ const QuestionCard: React.FC<QuestionCardProps> = ({
       setTimeFlash(false);
     }
   }, [timeRemaining]);
+
   const handleSelectOption = (option: string) => {
     if (disabled || selectedAnswer) return;
     setSelectedAnswer(option);
     onAnswer(option);
   };
+
   const getSubjectColor = (subject: string) => {
     switch (subject) {
       case 'Mathematics':
@@ -51,12 +60,14 @@ const QuestionCard: React.FC<QuestionCardProps> = ({
         return 'bg-gray-900/60 text-gray-300 border-gray-700';
     }
   };
+
   const getTimeColor = () => {
     if (!timeRemaining) return 'text-gray-400';
     if (timeRemaining > 10) return 'text-green-500';
     if (timeRemaining > 5) return 'text-yellow-500';
     return cn('text-red-500', timeFlash ? 'animate-pulse' : '');
   };
+
   return <motion.div className="bg-gray-900/80 backdrop-blur-sm rounded-xl shadow-lg overflow-hidden max-w-2xl w-full border border-purple-500/30" initial={{
     opacity: 0,
     y: 20
@@ -141,4 +152,5 @@ const QuestionCard: React.FC<QuestionCardProps> = ({
       </div>
     </motion.div>;
 };
+
 export default QuestionCard;
