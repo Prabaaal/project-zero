@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { Question } from '@/types/game';
 import { Button } from '@/components/ui/button';
@@ -131,9 +132,14 @@ const QuestionCard: React.FC<QuestionCardProps> = ({
           delay: index * 0.1,
           duration: 0.3
         }}>
-              <Button variant={selectedAnswer === option ? "default" : "outline"} className={cn("w-full justify-start text-left py-4 h-auto group transition-all", selectedAnswer === option ? "bg-gradient-to-r from-purple-700 to-purple-900 text-white border-purple-500" : "hover:bg-gray-800 hover:border-purple-500 text-purple-100 border-gray-700", (disabled || confirmed) && "opacity-70 cursor-not-allowed")} onClick={() => handleSelectOption(option)} disabled={disabled || confirmed}>
+              <Button variant={selectedAnswer === option ? "default" : "outline"} className={cn("w-full justify-start text-left py-4 h-auto group transition-all", 
+                selectedAnswer === option 
+                  ? "bg-gradient-to-r from-purple-700 to-purple-900 text-black font-medium border-purple-500" 
+                  : "hover:bg-gray-800 hover:border-purple-500 text-black border-gray-700 bg-gray-200", 
+                (disabled || confirmed) && "opacity-70 cursor-not-allowed"
+              )} onClick={() => handleSelectOption(option)} disabled={disabled || confirmed}>
                 <span className="font-medium flex items-center">
-                  <span className="h-6 w-6 rounded-full flex items-center justify-center border border-current mr-2 transition-colors">
+                  <span className="h-6 w-6 rounded-full flex items-center justify-center border border-current mr-2 text-black bg-white">
                     {String.fromCharCode(65 + index)}
                   </span>
                   {option}
@@ -146,7 +152,7 @@ const QuestionCard: React.FC<QuestionCardProps> = ({
             }} transition={{
               type: "spring"
             }}>
-                    {option === question.correctAnswer ? <CheckCircle className="h-5 w-5 text-green-400" /> : <XCircle className="h-5 w-5 text-red-400" />}
+                    {option === question.correctAnswer ? <CheckCircle className="h-5 w-5 text-green-600" /> : <XCircle className="h-5 w-5 text-red-600" />}
                   </motion.span>}
                 
                 <span className="absolute inset-0 rounded-md bg-gradient-to-r from-purple-600/0 via-purple-600/40 to-purple-900/0 opacity-0 group-hover:opacity-100 transition-opacity text-base text-slate-950" />
